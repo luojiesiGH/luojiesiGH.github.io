@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.5" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.5">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.5">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.5" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.5',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="Python," />
+
+
+<meta name="description" content="相对于上一个爬虫的改进首先说说上一个爬虫的缺点吧：1、异常处理的运用模糊2、urllib模块使用不规范3、多个线程之间的联系不够准确，仅靠时间来猜测是否完成有缺陷解决方案：1、添加对TypeError，WindowError，AttributeError异常的捕获和处理。2、添加了头文件。3、在判断是否等待时我们首先参考上一级的线程的状态，如果上一级线程存活那么我们只需要考虑队列是否为空就ok。这">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="招聘网站爬虫2">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/招聘网站爬虫2/index.html">
+<meta property="og:site_name" content="DarkL&#39;s Blog">
+<meta property="og:description" content="相对于上一个爬虫的改进首先说说上一个爬虫的缺点吧：1、异常处理的运用模糊2、urllib模块使用不规范3、多个线程之间的联系不够准确，仅靠时间来猜测是否完成有缺陷解决方案：1、添加对TypeError，WindowError，AttributeError异常的捕获和处理。2、添加了头文件。3、在判断是否等待时我们首先参考上一级的线程的状态，如果上一级线程存活那么我们只需要考虑队列是否为空就ok。这">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-03-22T13:34:35.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="招聘网站爬虫2">
+<meta name="twitter:description" content="相对于上一个爬虫的改进首先说说上一个爬虫的缺点吧：1、异常处理的运用模糊2、urllib模块使用不规范3、多个线程之间的联系不够准确，仅靠时间来猜测是否完成有缺陷解决方案：1、添加对TypeError，WindowError，AttributeError异常的捕获和处理。2、添加了头文件。3、在判断是否等待时我们首先参考上一级的线程的状态，如果上一级线程存活那么我们只需要考虑队列是否为空就ok。这">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/22/招聘网站爬虫2/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>招聘网站爬虫2 | DarkL's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DarkL's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/招聘网站爬虫2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DarkL">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/DarkL.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DarkL's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">招聘网站爬虫2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-22T19:41:00+08:00">2018-03-22</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="相对于上一个爬虫的改进"><a href="#相对于上一个爬虫的改进" class="headerlink" title="相对于上一个爬虫的改进"></a>相对于上一个爬虫的改进</h2><p>首先说说上一个爬虫的缺点吧：<br>1、异常处理的运用模糊<br>2、urllib模块使用不规范<br>3、多个线程之间的联系不够准确，仅靠时间来猜测是否完成有缺陷<br>解决方案：<br>1、添加对TypeError，WindowError，AttributeError异常的捕获和处理。<br>2、添加了头文件。<br>3、在判断是否等待时我们首先参考上一级的线程的状态，如果上一级线程存活那么我们只需要考虑队列是否为空就ok。这里可以使用两种方式来判断一种是使用全局变量来对线程的状态进行标记，当线程结束时修改自己的标记值。另一种方式是通过线程通信的队列，结束时向队列中添加标记表明线程结束。收集链接时使用的是全局变量的方式，输出是使用的是队列消息的方式。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>spider_test.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">__title__ = '爬虫'</span></span><br><span class="line"><span class="string">__author__ = 'Dadrk'</span></span><br><span class="line"><span class="string">__mtime__ = '3/14/2018'</span></span><br><span class="line"><span class="string"># code is far away from bugs with the god animal protecting</span></span><br><span class="line"><span class="string">    I love animals. They taste delicious.</span></span><br><span class="line"><span class="string">              ┏┓      ┏┓</span></span><br><span class="line"><span class="string">            ┏┛┻━━━┛┻┓</span></span><br><span class="line"><span class="string">            ┃      ☃      ┃</span></span><br><span class="line"><span class="string">            ┃  ┳┛  ┗┳  ┃</span></span><br><span class="line"><span class="string">            ┃      ┻      ┃</span></span><br><span class="line"><span class="string">            ┗━┓      ┏━┛</span></span><br><span class="line"><span class="string">                ┃      ┗━━━┓</span></span><br><span class="line"><span class="string">                ┃  神兽保佑    ┣┓</span></span><br><span class="line"><span class="string">                ┃　永无BUG！   ┏┛</span></span><br><span class="line"><span class="string">                ┗┓┓┏━┳┓┏┛</span></span><br><span class="line"><span class="string">                  ┃┫┫  ┃┫┫</span></span><br><span class="line"><span class="string">                  ┗┻┛  ┗┻┛</span></span><br><span class="line"><span class="string">"</span><span class="string">""</span></span><br><span class="line"></span><br><span class="line">from urllib.request import urlopen</span><br><span class="line">from urllib import error</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import xls_outputer</span><br><span class="line">import threading</span><br><span class="line">from queue import Queue</span><br><span class="line">from openpyxl import Workbook</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">class BS4Parser(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.spiderpools = []</span><br><span class="line">        <span class="comment">#页面链接队列</span></span><br><span class="line">        self.urlq = Queue()</span><br><span class="line">        <span class="comment">#页面返回信息队列</span></span><br><span class="line">        self.infoq = Queue()</span><br><span class="line">        self.crawcount = 0</span><br><span class="line">        <span class="comment">#线程状态的信号量</span></span><br><span class="line">        self.collecturlsAlive = True</span><br><span class="line"></span><br><span class="line">    def craw(self):</span><br><span class="line">        <span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">        爬虫入口</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        '</span><span class="string">''</span></span><br><span class="line">        self.outputer = xls_outputer.XlsOutputer(self.infoq)</span><br><span class="line">        curlsT = threading.Thread(target=self.collecturls,name=<span class="string">"CollectUrl"</span>,args=(1,))</span><br><span class="line">        curlsT.start()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(10):</span><br><span class="line">            self.spiderpools.append(threading.Thread(target=self.collectpageinfo))</span><br><span class="line">        self.spiderpools.append(threading.Thread(target=self.outputer.output_xls))</span><br><span class="line">        <span class="keyword">for</span> thread <span class="keyword">in</span> self.spiderpools:</span><br><span class="line">            thread.start()</span><br><span class="line">        <span class="keyword">for</span> thread <span class="keyword">in</span> self.spiderpools:</span><br><span class="line">            thread.join()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def collectpageinfo(self):</span><br><span class="line">        <span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">        收集招聘信息详情</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        '</span><span class="string">''</span></span><br><span class="line">        <span class="keyword">while</span> True:</span><br><span class="line">            <span class="keyword">if</span> self.collecturlsAlive == False:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"url empty======================================"</span>)</span><br><span class="line">                self.infoq.put(True)</span><br><span class="line">                <span class="built_in">break</span>;</span><br><span class="line">            time.sleep(3)</span><br><span class="line">            <span class="keyword">while</span> not self.urlq.empty():</span><br><span class="line">                CompanyPageUrl = self.urlq.get()</span><br><span class="line">                data = &#123;&#125;</span><br><span class="line">                try:</span><br><span class="line">                    response = urlopen(CompanyPageUrl)</span><br><span class="line">                    CompanyPage = BeautifulSoup(response, <span class="string">"html5lib"</span>)</span><br><span class="line">                    self.crawcount = self.crawcount + 1</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"collect info %d       "</span> % self.crawcount,end=<span class="string">""</span>)</span><br><span class="line">                    <span class="built_in">print</span>(CompanyPageUrl)</span><br><span class="line">                    data[<span class="string">"postion"</span>] = CompanyPage.find(<span class="string">"div"</span>, <span class="string">"tHeader tHjob"</span>).find(<span class="string">"h1"</span>)[<span class="string">"title"</span>]</span><br><span class="line">                    data[<span class="string">"lname"</span>] = CompanyPage.find(<span class="string">"div"</span>, <span class="string">"tHeader tHjob"</span>).find(<span class="string">"span"</span>, <span class="string">"lname"</span>).string</span><br><span class="line">                    data[<span class="string">"strong"</span>] = CompanyPage.find(<span class="string">"div"</span>, <span class="string">"tHeader tHjob"</span>).find(<span class="string">"strong"</span>).string</span><br><span class="line">                    data[<span class="string">"cname"</span>] = CompanyPage.find(<span class="string">"div"</span>, <span class="string">"tHeader tHjob"</span>).find(<span class="string">"p"</span>, <span class="string">"cname"</span>).find(<span class="string">"a"</span>)[<span class="string">"title"</span>]</span><br><span class="line">                    data[<span class="string">"url"</span>] = CompanyPageUrl</span><br><span class="line">                    data[<span class="string">"request"</span>] = <span class="string">""</span></span><br><span class="line">                    <span class="keyword">for</span> p <span class="keyword">in</span> CompanyPage.find(<span class="string">"div"</span>, <span class="string">"bmsg job_msg inbox"</span>).get_text().split():</span><br><span class="line">                        <span class="keyword">if</span> p == <span class="string">"分享"</span>:</span><br><span class="line">                            <span class="built_in">break</span></span><br><span class="line">                        data[<span class="string">"request"</span>] += p</span><br><span class="line">                    self.infoq.put(data)</span><br><span class="line">                <span class="comment">#个别招聘网页不是51的，用该异常剔除</span></span><br><span class="line">                except AttributeError as e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"                                         Page is different:   "</span>,end=<span class="string">""</span>)</span><br><span class="line">                    <span class="built_in">print</span>(CompanyPageUrl)</span><br><span class="line">                <span class="comment">#处理超时</span></span><br><span class="line">                except WindowsError as e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"craw page faild,putting in the queue~~~~~~~~~~~~~~~~~"</span>)</span><br><span class="line">                    self.urlq.put(CompanyPageUrl)</span><br><span class="line">                except Exception as e:</span><br><span class="line">                    <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">    def collecturls(self,pagenumber):</span><br><span class="line">        <span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">        获取招聘详细网页链接</span></span><br><span class="line"><span class="string">        :param pagenumber:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        '</span><span class="string">''</span></span><br><span class="line">        root_url = <span class="string">"http://search.51job.com/list/000000,000000,0000,00,9,99,python,2,&#123;page&#125;.html?lang=c&amp;stype=&amp;postchannel=0000&amp;workyear=99&amp;cotype=99&amp;degreefrom=99&amp;jobterm=99&amp;companysize=99&amp;providesalary=99&amp;lonlat=0%2C0&amp;radius=-1&amp;ord_field=0&amp;confirmdate=9&amp;fromType=&amp;dibiaoid=0&amp;address=&amp;line=&amp;specialarea=00&amp;from=&amp;welfare="</span></span><br><span class="line">        try:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"craw page :"</span> + str(pagenumber))</span><br><span class="line">            <span class="comment"># if pagenumber%10 == 0:</span></span><br><span class="line">            <span class="comment">#     print("craw page :"+ str(pagenumber))</span></span><br><span class="line">            response = urlopen(root_url.format(page=pagenumber))</span><br><span class="line">            <span class="built_in">print</span>(response.getcode())</span><br><span class="line">            page = BeautifulSoup(response,<span class="string">"html5lib"</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment">#判断页面是否存在，不存在线程结束</span></span><br><span class="line">            <span class="keyword">if</span> len(page.find(<span class="string">"div"</span>,<span class="string">"dw_table"</span>).find_all(<span class="string">"div"</span>,&#123;<span class="string">"class"</span>:<span class="string">"el"</span>&#125;)) == 1:</span><br><span class="line">                <span class="built_in">return</span> ;</span><br><span class="line"></span><br><span class="line">            <span class="comment">#搜集页面中的职位链接，添加到url队列中</span></span><br><span class="line">            <span class="keyword">for</span> div <span class="keyword">in</span> page.find(<span class="string">"div"</span>,<span class="string">"dw_table"</span>).find_all(<span class="string">"div"</span>,&#123;<span class="string">"class"</span>:<span class="string">"el"</span>&#125;)[1:]:</span><br><span class="line">                self.urlq.put(div.find(<span class="string">"a"</span>)[<span class="string">"href"</span>])</span><br><span class="line"></span><br><span class="line">            <span class="comment">#设置爬取的页面数(测试)</span></span><br><span class="line">            <span class="keyword">if</span> pagenumber==1:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"urls collecting end!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"</span>)</span><br><span class="line">                self.collecturlsAlive = False</span><br><span class="line">                <span class="built_in">return</span> ;</span><br><span class="line">            <span class="comment">#跳转到下一页继续爬取</span></span><br><span class="line">            pagenumber = pagenumber + 1</span><br><span class="line">            self.collecturls(pagenumber)</span><br><span class="line"></span><br><span class="line">        except Exception as e:</span><br><span class="line">            <span class="comment"># print(e.reason)</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"faild to request from %d ,try again............"</span>%pagenumber)</span><br><span class="line">            self.collecturls(pagenumber)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    spider = BS4Parser()</span><br><span class="line">    spider.craw()</span><br></pre></td></tr></table></figure></p>
+<p>xls_outputer.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">__title__ = '爬虫'</span></span><br><span class="line"><span class="string">__author__ = 'Dadrk'</span></span><br><span class="line"><span class="string">__mtime__ = '3/14/2018'</span></span><br><span class="line"><span class="string"># code is far away from bugs with the god animal protecting</span></span><br><span class="line"><span class="string">    I love animals. They taste delicious.</span></span><br><span class="line"><span class="string">              ┏┓      ┏┓</span></span><br><span class="line"><span class="string">            ┏┛┻━━━┛┻┓</span></span><br><span class="line"><span class="string">            ┃      ☃      ┃</span></span><br><span class="line"><span class="string">            ┃  ┳┛  ┗┳  ┃</span></span><br><span class="line"><span class="string">            ┃      ┻      ┃</span></span><br><span class="line"><span class="string">            ┗━┓      ┏━┛</span></span><br><span class="line"><span class="string">                ┃      ┗━━━┓</span></span><br><span class="line"><span class="string">                ┃  神兽保佑    ┣┓</span></span><br><span class="line"><span class="string">                ┃　永无BUG！   ┏┛</span></span><br><span class="line"><span class="string">                ┗┓┓┏━┳┓┏┛</span></span><br><span class="line"><span class="string">                  ┃┫┫  ┃┫┫</span></span><br><span class="line"><span class="string">                  ┗┻┛  ┗┻┛</span></span><br><span class="line"><span class="string">"</span><span class="string">""</span></span><br><span class="line">import time</span><br><span class="line">from openpyxl import Workbook</span><br><span class="line"></span><br><span class="line">class XlsOutputer():</span><br><span class="line">    def __init__(self,InfoQueue):</span><br><span class="line">        self.queue = InfoQueue</span><br><span class="line">        self.wb = Workbook()</span><br><span class="line">        self.title = [<span class="string">"职位"</span>,<span class="string">"位置"</span>,<span class="string">"薪资"</span>,<span class="string">"公司"</span>,<span class="string">"招聘链接"</span>,<span class="string">"职位要求"</span>]</span><br><span class="line"></span><br><span class="line">    def output_xls(self):</span><br><span class="line">        ws = self.wb.active</span><br><span class="line">        ws.append(self.title)</span><br><span class="line">        <span class="comment">#收集结束标志</span></span><br><span class="line">        endcount = 0</span><br><span class="line">        fout = open(<span class="string">'前程无忧.txt'</span>, <span class="string">'a+'</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        <span class="keyword">while</span> True:</span><br><span class="line">            <span class="keyword">if</span> endcount == 10:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"output ending"</span>)</span><br><span class="line">                <span class="built_in">break</span>;</span><br><span class="line">            time.sleep(3)</span><br><span class="line">            <span class="keyword">while</span> not self.queue.empty():</span><br><span class="line">                try:</span><br><span class="line">                    data = self.queue.get()</span><br><span class="line">                    <span class="comment">#Ture为收集公司信息线程结束标志</span></span><br><span class="line">                    <span class="keyword">if</span> data == True:</span><br><span class="line">                        endcount = endcount + 1</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        ws.append(list(data.values()))</span><br><span class="line">                        info = <span class="string">""</span></span><br><span class="line">                        <span class="keyword">for</span> value <span class="keyword">in</span> data.values():</span><br><span class="line">                            <span class="keyword">if</span> value == None:</span><br><span class="line">                                value = <span class="string">"\t"</span></span><br><span class="line">                            info = info + value + <span class="string">"\t"</span></span><br><span class="line">                        fout.write(info)</span><br><span class="line">                        fout.write(<span class="string">"\n"</span>)</span><br><span class="line">                        self.queue.task_done()</span><br><span class="line">                except TypeError as e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"                                                       Info is Null,url="</span>,end=<span class="string">""</span>)</span><br><span class="line">                    <span class="built_in">print</span>(data[<span class="string">"url"</span>])</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"waitting info"</span>)</span><br><span class="line">        self.wb.save(<span class="string">"前程.xlsx"</span>)</span><br><span class="line">        fout.close()</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/19/招聘网站爬虫1-0/" rel="next" title="招聘网站爬虫1.0">
+                <i class="fa fa-chevron-left"></i> 招聘网站爬虫1.0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/DarkL.jpg"
+                alt="DarkL" />
+            
+              <p class="site-author-name" itemprop="name">DarkL</p>
+              <p class="site-description motion-element" itemprop="description">Listening</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/luojiesiGH" target="_blank" title="Github"><i class="fa fa-fw fa-globe"></i>Github</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#相对于上一个爬虫的改进"><span class="nav-number">1.</span> <span class="nav-text">相对于上一个爬虫的改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DarkL</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.5</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.5"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.5"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.5"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.5"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.5"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
