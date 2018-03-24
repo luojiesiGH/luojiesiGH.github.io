@@ -339,12 +339,15 @@
 
       
         
-          
-            <h2 id="安装genymation"><a href="#安装genymation" class="headerlink" title="安装genymation"></a>安装genymation</h2><p>学习android开发使用自带的模拟器总是自动崩溃，崩溃了还需要电脑重启才能解决问题。没有找到原因，所以准备换一个模拟器。这里使用的是genymotion，他的官网说这是最快的Android模拟器。<br><a href="http://www.genymotion.net/" target="_blank" rel="noopener">genymotion传送门</a>  </p>
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>首先注册一个个人账号<a href="https://www.genymotion.com/account/create/" target="_blank" rel="noopener">sign up</a><br><img src="sign_up.png" alt=""><br>然后下载个人版<a href="https://www.genymotion.com/download/" target="_blank" rel="noopener">download</a>，地址在这不用你去官网瞎找了，我当初是没找到。。。。<br><img src="download.png" alt=""></p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>一路点next就好了，最后安装完成是这个样子的<img src="use.png" alt=""><br>选择personal use进入。添加一个虚拟设备，这里需要你登陆，用你刚才注册好的账号登陆就行了。选择一个进行下载。<img src="dd.png" alt=""></p>
-
-          
+          <h2 id="安装genymation"><a href="#安装genymation" class="headerlink" title="安装genymation"></a>安装genymation</h2><p>学习android开发使用自带的模拟器总是自动崩溃，崩溃了还需要电脑重启才能解决问题。没有找到原因，所以准备换一个模拟器。这里使用的是genymotion，他的官网说这是最快的Android模拟器。<br><a href="http://www.genymotion.net/" target="_blank" rel="noopener">genymotion传送门</a>  </p>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>首先注册一个个人账号<a href="https://www.genymotion.com/account/create/" target="_blank" rel="noopener">sign up</a><br><img src="sign_up.png" alt=""><br>然后下载个人版<a href="https://www.genymotion.com/download/" target="_blank" rel="noopener">download</a>，地址在这不用你去官网瞎找了，我当初是没找到。。。。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/24/InstallGenymotion/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -465,29 +468,16 @@
 
       
         
-          
-            <h1 id="Android项目文件结构说明"><a href="#Android项目文件结构说明" class="headerlink" title="Android项目文件结构说明"></a>Android项目文件结构说明</h1><p>项目文件结构如图所示:<br><img src="filestructure.png" alt="">  </p>
+          <h1 id="Android项目文件结构说明"><a href="#Android项目文件结构说明" class="headerlink" title="Android项目文件结构说明"></a>Android项目文件结构说明</h1><p>项目文件结构如图所示:<br><img src="filestructure.png" alt="">  </p>
 <h4 id="1、-grade与-idea"><a href="#1、-grade与-idea" class="headerlink" title="1、.grade与.idea"></a>1、.grade与.idea</h4><p>这两个文件是Android studio自动生成的文件不需要我们编辑。</p>
-<h4 id="2、app"><a href="#2、app" class="headerlink" title="2、app"></a>2、app</h4><p>项目中的代码、资源都在这个目录下。我们的开发工作主要在该目录下进行。</p>
-<h4 id="3、bulid"><a href="#3、bulid" class="headerlink" title="3、bulid"></a>3、bulid</h4><p>编译时自动生成的文件，不需要我们关心。</p>
-<h4 id="4、gradle"><a href="#4、gradle" class="headerlink" title="4、gradle"></a>4、gradle</h4><p>包含了gradle wrapper的配置文件，使用gradle wrapper的方式不需要提前将gradle下载好，会根据本地缓存情况自动下载gradle。Android Studio默认不启动gradle wrapper方式，可以通过File-&gt;Setting-&gt;Build,Execution,Deplyment-&gt;Gradle,进行配置更改。</p>
-<h4 id="5-gitignore"><a href="#5-gitignore" class="headerlink" title="5..gitignore"></a>5..gitignore</h4><p>有关版本控制的文件</p>
-<h4 id="6-build-grade"><a href="#6-build-grade" class="headerlink" title="6.build.grade"></a>6.build.grade</h4><p>项目全局的gradle构建脚本，一般不需要修改</p>
-<h4 id="7-gradlew-gradlew-bat"><a href="#7-gradlew-gradlew-bat" class="headerlink" title="7.gradlew gradlew.bat"></a>7.gradlew gradlew.bat</h4><p>用来在命令行中执行gradle命令，gradlew在linux或者mac中执行，gradlew.bat在Win系统下执行</p>
-<h4 id="8-gradle-properties"><a href="#8-gradle-properties" class="headerlink" title="8. gradle.properties"></a>8. gradle.properties</h4><p>gradle的全局配置文件，影响项目中所有的gradle编译脚本</p>
-<h4 id="9-ActivityTest-iml"><a href="#9-ActivityTest-iml" class="headerlink" title="9.ActivityTest.iml"></a>9.ActivityTest.iml</h4><p>标识是一个IDEA项目，不需要关心</p>
-<h4 id="10-local-properties"><a href="#10-local-properties" class="headerlink" title="10.local.properties"></a>10.local.properties</h4><p>指定SDK路径</p>
-<h4 id="11-settings-gradle"><a href="#11-settings-gradle" class="headerlink" title="11.settings.gradle"></a>11.settings.gradle</h4><p>指定引入的模块，一般自动完成。</p>
-<h2 id="app文件说明"><a href="#app文件说明" class="headerlink" title="app文件说明"></a>app文件说明</h2><p><img src="app.png" alt=""></p>
-<h4 id="1、build"><a href="#1、build" class="headerlink" title="1、build"></a>1、build</h4><p>编译时自动生成的文件，不需要关心</p>
-<h4 id="2、libs"><a href="#2、libs" class="headerlink" title="2、libs"></a>2、libs</h4><p>用到的第三方包，放到该目录下都会自动添加到构建路径中</p>
-<h4 id="3、androidTest"><a href="#3、androidTest" class="headerlink" title="3、androidTest"></a>3、androidTest</h4><p>编写测试用例，可以对项目进行一些自动化测试</p>
-<h4 id="4、java"><a href="#4、java" class="headerlink" title="4、java"></a>4、java</h4><p>放我们的java代码的地方</p>
-<h4 id="5、res"><a href="#5、res" class="headerlink" title="5、res"></a>5、res</h4><p>项目资源文件，drawable<em> 图片文件夹、 mipmap</em> 图标文件夹 都有不同的分辨率、layout布局文件夹、values字符串文件</p>
-<h4 id="6、progurad-rules-pro"><a href="#6、progurad-rules-pro" class="headerlink" title="6、progurad-rules.pro"></a>6、progurad-rules.pro</h4><p>代码混淆规则</p>
-<h4 id="7、剩下的先不用关心"><a href="#7、剩下的先不用关心" class="headerlink" title="7、剩下的先不用关心"></a>7、剩下的先不用关心</h4><p>··············<br>打开AndroidMainfest.xml文件可以看到如下代码<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-
-          
+<h4 id="2、app"><a href="#2、app" class="headerlink" title="2、app"></a>2、app</h4><p>项目中的代码、资源都在这个目录下。我们的开发工作主要在该目录下进行。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/24/LearnAndroid-1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
