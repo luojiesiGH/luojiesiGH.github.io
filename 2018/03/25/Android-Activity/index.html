@@ -103,21 +103,21 @@
   <meta name="keywords" content="Android," />
 
 
-<meta name="description" content="活动活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。 活动的基本用法创建活动：app-&amp;gt;src-&amp;gt;main-&amp;gt;java-&amp;gt;package,右键new-&amp;gt;Activity-&amp;gt;Empty Activity两个选项： Generate Layout File：自动创建布局。 Launcher Activity：设置为主活动。 Bac">
+<meta name="description" content="活动活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。 活动的基本用法创建活动：app-&amp;gt;src-&amp;gt;main-&amp;gt;java-&amp;gt;package,右键new-&amp;gt;Activity-&amp;gt;Empty Activity">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第一行代码-活动">
 <meta property="og:url" content="http://yoursite.com/2018/03/25/Android-Activity/index.html">
 <meta property="og:site_name" content="DarkL&#39;s Blog">
-<meta property="og:description" content="活动活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。 活动的基本用法创建活动：app-&amp;gt;src-&amp;gt;main-&amp;gt;java-&amp;gt;package,右键new-&amp;gt;Activity-&amp;gt;Empty Activity两个选项： Generate Layout File：自动创建布局。 Launcher Activity：设置为主活动。 Bac">
+<meta property="og:description" content="活动活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。 活动的基本用法创建活动：app-&amp;gt;src-&amp;gt;main-&amp;gt;java-&amp;gt;package,右键new-&amp;gt;Activity-&amp;gt;Empty Activity">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Android-Activity/emptyActivity.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Android-Activity/Toast.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/25/Android-Activity/life.png">
-<meta property="og:updated_time" content="2018-03-25T11:45:19.595Z">
+<meta property="og:updated_time" content="2018-03-26T08:06:28.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第一行代码-活动">
-<meta name="twitter:description" content="活动活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。 活动的基本用法创建活动：app-&amp;gt;src-&amp;gt;main-&amp;gt;java-&amp;gt;package,右键new-&amp;gt;Activity-&amp;gt;Empty Activity两个选项： Generate Layout File：自动创建布局。 Launcher Activity：设置为主活动。 Bac">
+<meta name="twitter:description" content="活动活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。 活动的基本用法创建活动：app-&amp;gt;src-&amp;gt;main-&amp;gt;java-&amp;gt;package,右键new-&amp;gt;Activity-&amp;gt;Empty Activity">
 <meta name="twitter:image" content="http://yoursite.com/2018/03/25/Android-Activity/emptyActivity.png">
 
 
@@ -342,7 +342,7 @@
 
       
         <h1 id="活动"><a href="#活动" class="headerlink" title="活动"></a>活动</h1><p>活动是一种包含用户界面的组件，主要用于和用户交互。一个程序中可以包含零个或多个活动。</p>
-<h2 id="活动的基本用法"><a href="#活动的基本用法" class="headerlink" title="活动的基本用法"></a>活动的基本用法</h2><h3 id="创建活动："><a href="#创建活动：" class="headerlink" title="创建活动："></a>创建活动：</h3><p>app-&gt;src-&gt;main-&gt;java-&gt;package,右键new-&gt;Activity-&gt;Empty Activity<br><img src="emptyActivity.png" alt="">两个选项：<br> <em>Generate Layout File</em>：自动创建布局。<br> <em>Launcher Activity</em>：设置为主活动。<br> <em>Backwards Compatibility</em>：向下兼容。</p>
+<h2 id="活动的基本用法"><a href="#活动的基本用法" class="headerlink" title="活动的基本用法"></a>活动的基本用法</h2><h3 id="创建活动："><a href="#创建活动：" class="headerlink" title="创建活动："></a>创建活动：</h3><p>app-&gt;src-&gt;main-&gt;java-&gt;package,右键new-&gt;Activity-&gt;Empty Activity<br><a id="more"></a><br><img src="emptyActivity.png" alt="">两个选项：<br> <em>Generate Layout File</em>：自动创建布局。<br> <em>Launcher Activity</em>：设置为主活动。<br> <em>Backwards Compatibility</em>：向下兼容。</p>
 <h3 id="创建布局"><a href="#创建布局" class="headerlink" title="创建布局"></a>创建布局</h3><p>src New-&gt;Directory 新建Layout文件夹（没有的话）<br>Layout new-&gt;layout resource file。</p>
 <h3 id="活动注册"><a href="#活动注册" class="headerlink" title="活动注册"></a>活动注册</h3><p>在AndroidManifest.xml文件中注册。第一篇已经讲过。</p>
 <h3 id="活动中使用Toast"><a href="#活动中使用Toast" class="headerlink" title="活动中使用Toast"></a>活动中使用Toast</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = getIntent();</span><br><span class="line">String data1 = intent.getStringExtra(<span class="string">"param1"</span>);</span><br><span class="line">String data2 = intent.getStringExtra(<span class="string">"param2"</span>);</span><br><span class="line">Toast.makeText(Main2Activity.<span class="keyword">this</span>,data1+data2,Toast.LENGTH_SHORT).show();</span><br></pre></td></tr></table></figure>
