@@ -112,7 +112,7 @@
 <meta property="og:description" content="中心极限定理(Central limit theorem)条件：相互独立的随机变量。随着样本容量（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/statistically-2/C_S.png">
-<meta property="og:updated_time" content="2019-01-05T12:42:57.289Z">
+<meta property="og:updated_time" content="2019-01-05T14:00:06.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统计学(二)">
 <meta name="twitter:description" content="中心极限定理(Central limit theorem)条件：相互独立的随机变量。随着样本容量（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$">
@@ -341,7 +341,7 @@
       
         <h2 id="中心极限定理-Central-limit-theorem"><a href="#中心极限定理-Central-limit-theorem" class="headerlink" title="中心极限定理(Central limit theorem)"></a>中心极限定理(Central limit theorem)</h2><p>条件：相互独立的随机变量。<br>随着样本<strong>容量</strong>（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$<a id="more"></a><br>抽样分布与样本分布的关系：<br>1、均值：$\mu_{\bar{x}} = \mu$<br>2、方差：$\sigma_{\bar{x}}^2=\frac{\sigma^2}{n}$<br>在实际应用中，我们不知道研究对象整体的平均值、标准差之类的统计参数，我就们可以利用中心极限定理，用抽样数据的均值、标准差去计算整体样本的统计参数。<br>来看一道kehan学院的题帮助理解<strong>中心极限定理</strong>以及<strong>正态分布</strong>的实际应用。<img src="C_S.png" alt=""></p>
 <h2 id="伯努利分布的均值和方差公式"><a href="#伯努利分布的均值和方差公式" class="headerlink" title="伯努利分布的均值和方差公式"></a>伯努利分布的均值和方差公式</h2><p>对于：$X\sim B(n,p)$<br>均值$\mu$：所有取值的加权和：$$\mu=p$$方差$\sigma^2$：离均值或期望值的距离的平方的概率加权和： $$\sigma^2=p(1-p)$$</p>
-<h2 id="置信区间"><a href="#置信区间" class="headerlink" title="置信区间"></a>置信区间</h2><p>一个概率样本的置信区间（英语：Confidence interval，CI），是对产生这个样本的总体的参数分布（Parametric Distribution）中的某一个未知参数值，以区间形式给出的估计。在上题中来看就是根据苹果的样本给出总体苹果大小的均值在110~124(区间)的概率(可信度)。</p>
+<h2 id="置信区间"><a href="#置信区间" class="headerlink" title="置信区间"></a>置信区间</h2><p>一个概率样本的置信区间（英语：Confidence interval，CI），是对产生这个样本的总体的参数分布（Parametric Distribution）中的某一个未知参数值，以区间形式给出的估计。在上题中来看就是根据苹果的样本给出总体苹果大小的均值在110~124(区间)的概率(可信度)。<br><strong>小样本$n&lt;30$采用T分布而不采用正态分布。</strong>样本容量太小导致我们低估了标准差。</p>
 
       
     </div>
