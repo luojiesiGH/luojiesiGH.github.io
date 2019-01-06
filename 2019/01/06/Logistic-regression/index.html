@@ -100,30 +100,30 @@
 
 
   
-  <meta name="keywords" content="统计学," />
+  <meta name="keywords" content="机器学习," />
 
 
-<meta name="description" content="中心极限定理(Central limit theorem)条件：相互独立的随机变量。随着样本容量（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$">
-<meta name="keywords" content="统计学">
+<meta name="description" content="逻辑回归与线性回归线性回归模型的简写为：$$y = \omega^Tx + b$$如果将模型的预测值逼近$y$的衍生物，我们可以得到一个广义的线性模型$$y = g^{-1}(\omega^Tx + b)$$其中$g(.)$称为”联系函数“(link function)。例如对数线性回归$\ln(y) = \omega^Tx+b$，其中$g(.)=\ln(.)$考虑到二分类任务，线性回归模型产生的">
+<meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="统计学(二)">
-<meta property="og:url" content="http://yoursite.com/2019/01/05/statistically-2/index.html">
+<meta property="og:title" content="逻辑回归">
+<meta property="og:url" content="http://yoursite.com/2019/01/06/Logistic-regression/index.html">
 <meta property="og:site_name" content="DarkL&#39;s Blog">
-<meta property="og:description" content="中心极限定理(Central limit theorem)条件：相互独立的随机变量。随着样本容量（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$">
+<meta property="og:description" content="逻辑回归与线性回归线性回归模型的简写为：$$y = \omega^Tx + b$$如果将模型的预测值逼近$y$的衍生物，我们可以得到一个广义的线性模型$$y = g^{-1}(\omega^Tx + b)$$其中$g(.)$称为”联系函数“(link function)。例如对数线性回归$\ln(y) = \omega^Tx+b$，其中$g(.)=\ln(.)$考虑到二分类任务，线性回归模型产生的">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/2019/01/05/statistically-2/C_S.png">
-<meta property="og:updated_time" content="2019-01-05T14:00:06.664Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/Logistic-regression/logistic.jpeg">
+<meta property="og:updated_time" content="2019-01-06T10:50:28.172Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="统计学(二)">
-<meta name="twitter:description" content="中心极限定理(Central limit theorem)条件：相互独立的随机变量。随着样本容量（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$">
-<meta name="twitter:image" content="http://yoursite.com/2019/01/05/statistically-2/C_S.png">
+<meta name="twitter:title" content="逻辑回归">
+<meta name="twitter:description" content="逻辑回归与线性回归线性回归模型的简写为：$$y = \omega^Tx + b$$如果将模型的预测值逼近$y$的衍生物，我们可以得到一个广义的线性模型$$y = g^{-1}(\omega^Tx + b)$$其中$g(.)$称为”联系函数“(link function)。例如对数线性回归$\ln(y) = \omega^Tx+b$，其中$g(.)=\ln(.)$考虑到二分类任务，线性回归模型产生的">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/06/Logistic-regression/logistic.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/05/statistically-2/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/06/Logistic-regression/"/>
 
 
 
@@ -132,7 +132,7 @@
     sidebar: "",
   };
 </script>
-  <title>统计学(二) | DarkL's Blog</title>
+  <title>逻辑回归 | DarkL's Blog</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/statistically-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/Logistic-regression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DarkL">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">统计学(二)</h1>
+          <h1 class="post-title" itemprop="name headline">逻辑回归</h1>
         
 
         <div class="post-meta">
@@ -302,7 +302,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T15:02:04+08:00">2019-01-05</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-06T16:22:11+08:00">2019-01-06</time>
             
 
             
@@ -339,10 +339,13 @@
       
 
       
-        <h2 id="中心极限定理-Central-limit-theorem"><a href="#中心极限定理-Central-limit-theorem" class="headerlink" title="中心极限定理(Central limit theorem)"></a>中心极限定理(Central limit theorem)</h2><p>条件：相互独立的随机变量。<br>随着样本<strong>容量</strong>（sample size）的增大，抽样样本均值/样本和的概率分布会靠近正态分布。$$SampleSize \to \infty \Rightarrow NormlDistribution$$<a id="more"></a><br>抽样分布与样本分布的关系：<br>1、均值：$\mu_{\bar{x}} = \mu$<br>2、方差：$\sigma_{\bar{x}}^2=\frac{\sigma^2}{n}$<br>在实际应用中，我们不知道研究对象整体的平均值、标准差之类的统计参数，我就们可以利用中心极限定理，用抽样数据的均值、标准差去计算整体样本的统计参数。<br>来看一道kehan学院的题帮助理解<strong>中心极限定理</strong>以及<strong>正态分布</strong>的实际应用。<img src="C_S.png" alt=""></p>
-<h2 id="伯努利分布的均值和方差公式"><a href="#伯努利分布的均值和方差公式" class="headerlink" title="伯努利分布的均值和方差公式"></a>伯努利分布的均值和方差公式</h2><p>对于：$X\sim B(n,p)$<br>均值$\mu$：所有取值的加权和：$$\mu=p$$方差$\sigma^2$：离均值或期望值的距离的平方的概率加权和： $$\sigma^2=p(1-p)$$</p>
-<h2 id="置信区间"><a href="#置信区间" class="headerlink" title="置信区间"></a>置信区间</h2><p>一个概率样本的置信区间（英语：Confidence interval，CI），是对产生这个样本的总体的参数分布（Parametric Distribution）中的某一个未知参数值，以区间形式给出的估计。在上题中来看就是根据苹果的样本给出总体苹果大小的均值在110~124(区间)的概率(可信度)。<br><strong>小样本$n&lt;30$采用T分布而不采用正态分布。</strong>样本容量太小导致我们低估了标准差。</p>
-
+        <h2 id="逻辑回归与线性回归"><a href="#逻辑回归与线性回归" class="headerlink" title="逻辑回归与线性回归"></a>逻辑回归与线性回归</h2><p>线性回归模型的简写为：$$y = \omega^Tx + b$$<br>如果将模型的预测值逼近$y$的衍生物，我们可以得到一个广义的线性模型$$y = g^{-1}(\omega^Tx + b)$$<br>其中$g(.)$称为”联系函数“(link function)。例如对数线性回归$\ln(y) = \omega^Tx+b$，其中$g(.)=\ln(.)$<br>考虑到二分类任务，线性回归模型产生的预测值$z=\omega^Tx+b$是实值，所以我们需要将实值$z$转化为$0/1$值。最理想的是单位阶跃函数(unit-step function)<br>$$<br>y=\begin{cases}<br>0,&amp; z&lt;0;\\<br>0.5,&amp; z=0;\\<br>1,&amp; z&gt;0,<br>\end{cases}<br>$$<br>即如果预测值$z$大于零就判断为正例，小于零就判断为反例，预测值为临界值则可任意判别。<img src="logistic.jpeg" alt=""><br>从图中可以看出单位阶跃函数不连续，因此不能直接用作$g^-(.)$。于是我们得到了一个近似单位阶跃函数，并且单调可微的对数几率函数 $$y = \frac{1}{1+e^{-z}}$$<br>将对数几率函数作为$g^-(.)$带入广义线性模型$y = g^{-1}(\omega^Tx + b)$我们可以得到$$y=\frac{1}{1+e^{-(\omega^Tx+b)}}$$<br>我们就可以用线性回归模型的预测结果去逼近真实标记的对数几率。对于以下的话我不是很理解：<strong>他直接对分类可能性进行建模，无需实现假设数据分布。</strong>  </p>
+<h2 id="逻辑回归的损失函数"><a href="#逻辑回归的损失函数" class="headerlink" title="逻辑回归的损失函数"></a>逻辑回归的损失函数</h2><p>逻辑回归的对数似然损失函数$cost$ $function$:<br>$$<br>cost(h_θ(x),y)=\begin{cases}<br>−log(h_θ(x)),&amp; y=1\\<br>−log(1−h_θ(x)),&amp; y=0<br>\end{cases}<br>$$<br>例如当输入样本为正样本，即$y=1$时:<br>如果此时$h_theta(x)=1$，则单对于这个样本而言$cost=0$，表示预测完全准确。<br>如果此时$h_theta(x)=0$，则单对于这个样本而言$cost=\infty$，表示预测错误。由于此时是一个正样本,但是预测结果$P(y=1|x;\theta)=0$，即表示y=1的概率为0，那么此时就需要给损失函数一个很大惩罚项。<br>负样本时类似。<br>将以上两个表达式合并为一个，则单个样本的损失函数可以描述为：$$cost(h_θ(x),y)=−y_ilog(h_θ(x))−(1−y_i)log(1−h_θ(x))$$<br>因为 yi 只有两种取值情况，1或0，分别令y=1或y=0，即可得到原来的分段表示式。<br>全体样本的损失函数可以表示为：$$cost(h_θ(x),y)=\sum_{i=1}^{m}−y_ilog(h_θ(x))−(1−y_i)log(1−h_θ(x))$$</p>
+<h2 id="正则化与模型评估指标"><a href="#正则化与模型评估指标" class="headerlink" title="正则化与模型评估指标"></a>正则化与模型评估指标</h2><p>还在研究。。。。 </p>
+<h2 id="逻辑回归的优缺点"><a href="#逻辑回归的优缺点" class="headerlink" title="逻辑回归的优缺点"></a>逻辑回归的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>-实现简单，广泛的应用于工业问题上；<br>-速度快，适合二分类问题<br>-简单易于理解，直接看到各个特征的权重<br>-能容易地更新模型吸收新的数据<br>-对逻辑回归而言，多重共线性并不是问题，它可以结合L2正则化来解决该问题;  </p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>-对数据和场景的适应能力有局限性，不如决策树算法适应性那么强。<br>-当特征空间很大时，逻辑回归的性能不是很好；<br>-容易欠拟合，一般准确度不太高<br>-不能很好地处理大量多类特征或变量；<br>-只能处理两分类问题（在此基础上衍生出来的softmax可以用于多分类），且必须线性可分，对于非线性特征，需要进行转换；<br>-使用前提: 自变量与因变量是线性关系。<br>-只是广义线性模型，不是真正的非线性方法。  </p>
+<h2 id="样本不均衡问题的解决办法"><a href="#样本不均衡问题的解决办法" class="headerlink" title="样本不均衡问题的解决办法"></a><a href="https://blog.csdn.net/heyongluoyao8/article/details/49408131" target="_blank" rel="noopener">样本不均衡问题的解决办法</a></h2><p>这篇blog对与样本不均衡以及解决办法有很好的解释。  </p>
+<h2 id="sklearn参数"><a href="#sklearn参数" class="headerlink" title="sklearn参数"></a><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html" target="_blank" rel="noopener">sklearn参数</a></h2>
       
     </div>
 
@@ -362,7 +365,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/统计学/" rel="tag"># 统计学</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
         </div>
       
@@ -375,8 +378,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/04/Linear_regression/" rel="next" title="线性回归">
-                <i class="fa fa-chevron-left"></i> 线性回归
+              <a href="/2019/01/05/statistically-2/" rel="next" title="统计学(二)">
+                <i class="fa fa-chevron-left"></i> 统计学(二)
               </a>
             
           </div>
@@ -384,10 +387,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/06/Logistic-regression/" rel="prev" title="逻辑回归">
-                逻辑回归 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -548,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#中心极限定理-Central-limit-theorem"><span class="nav-number">1.</span> <span class="nav-text">中心极限定理(Central limit theorem)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伯努利分布的均值和方差公式"><span class="nav-number">2.</span> <span class="nav-text">伯努利分布的均值和方差公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#置信区间"><span class="nav-number">3.</span> <span class="nav-text">置信区间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归与线性回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归与线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归的损失函数"><span class="nav-number">2.</span> <span class="nav-text">逻辑回归的损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化与模型评估指标"><span class="nav-number">3.</span> <span class="nav-text">正则化与模型评估指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归的优缺点"><span class="nav-number">4.</span> <span class="nav-text">逻辑回归的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本不均衡问题的解决办法"><span class="nav-number">5.</span> <span class="nav-text">样本不均衡问题的解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sklearn参数"><span class="nav-number">6.</span> <span class="nav-text">sklearn参数</span></a></li></ol></div>
             
 
           </div>
